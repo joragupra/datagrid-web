@@ -72,12 +72,12 @@
 			    });
 			}
 			
-			$(document).ready(function() {
+			function editAndTabDataTable( table ) {
 				
-				var numCols = $("#editable").find('tr')[0].cells.length;
-			  
+				var numCols = $(table).find('tr')[0].cells.length;
+				  
 			    /* Init DataTables */
-			    var oTable = $('#editable').dataTable({
+			    var oTable = $(table).dataTable({
 			    	'bPaginate' : false,
 			    	'bSort' : false,
 			    	'bFilter' : false,
@@ -104,15 +104,20 @@
 			    
 			    // Associate alt+n shortcut to add new row
 			    Mousetrap.bind(['alt+n'], function(e) {
-			    	fnClickAddRow( $('#editable').dataTable() );
+			    	fnClickAddRow( $(table).dataTable() );
 				    return false;
 				});
 			    
 			    // Associate alt+l shortcut to clear table
 			    Mousetrap.bind(['alt+l'], function(e) {
-			    	$('#editable').dataTable().fnClearTable();
+			    	$(table).dataTable().fnClearTable();
 				    return false;
 				});
+			}
+			
+			$(document).ready(function() {
+				
+				editAndTabDataTable('#editable');
 			    
 			} );
 
@@ -123,7 +128,7 @@
 		
 		<a class="btn btn-primary btn-small" onclick="fnClickAddRow( $('#editable').dataTable() );">Nueva factura ('ALT' + 'N')</a>
 		
-		<a class="btn btn-primary btn-small" onclick="fnCleanTable( $('#editable').dataTable() );">Limpiar tabla ('ALT' + 'L')</a>
+		<a class="btn btn-primary btn-small" onclick="$('#editable').dataTable().fnClearTable();">Limpiar tabla ('ALT' + 'L')</a>
 		
 		<br/>
 		<br/>
