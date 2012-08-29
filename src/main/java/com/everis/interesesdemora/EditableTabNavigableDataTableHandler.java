@@ -40,8 +40,7 @@ public class EditableTabNavigableDataTableHandler<T> extends HttpServlet {
 			throws ServletException, IOException {
 
 		LOG.debug("Receiving data from DataTable. Processing...");
-
-		res.setContentType("text/plain");
+		
 		PrintWriter out = res.getWriter();
 		String json = req.getParameter(DATA_PARAM_NAME);
 
@@ -59,12 +58,20 @@ public class EditableTabNavigableDataTableHandler<T> extends HttpServlet {
 		}
 		
 		processData(data);
-
-		out.println("success");
+		
+		res.setContentType("application/json");
+		out.println(gson.toJson(new DataTableHandlerResponse()));
+		out.flush();
 	}
 
 	protected void processData(Collection<T> data) {
 		// do stuff here
+	}
+	
+	public static void main(String[] args){
+		Gson gson = new Gson();
+		String result = gson.toJson(new DataTableHandlerResponse());
+		System.out.println(result);
 	}
 
 }

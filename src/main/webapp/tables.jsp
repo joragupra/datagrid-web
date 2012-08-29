@@ -67,8 +67,15 @@
 					  dataType: "json"
 					});
 				
-				request.done(function(msg) {
-					alert('exito');
+				request.done(function(response) {
+					if(response.code==0){
+						alert('Success!');
+						alert(response.message);
+					}
+					else{
+						alert('There was some error :(');
+						alert(response.message);
+					}
 				});
 
 				request.fail(function(jqXHR, textStatus) {
