@@ -1,4 +1,4 @@
-package com.everis.interesesdemora;
+package com.everis.datagrid;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,7 +25,7 @@ import com.google.gson.reflect.TypeToken;
  * @version 1.0.0
  * 
  */
-public abstract class EditableTabNavigableDataTableHandler<T> extends HttpServlet {
+public abstract class DatagridHandler<T> extends HttpServlet {
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ public abstract class EditableTabNavigableDataTableHandler<T> extends HttpServle
 	private static final long serialVersionUID = -7999995550997380015L;
 
 	private static final Logger LOG = LoggerFactory
-			.getLogger(EditableTabNavigableDataTableHandler.class);
+			.getLogger(DatagridHandler.class);
 
 	public static final String DATA_PARAM_NAME = "data";
 	
@@ -61,7 +61,7 @@ public abstract class EditableTabNavigableDataTableHandler<T> extends HttpServle
 			}
 		}
 		
-		DataTableHandlerResponse response = processData(data);
+		DatagridHandlerResponse response = processData(data);
 		
 		LOG.debug("Processing result was " + response);
 		
@@ -70,7 +70,7 @@ public abstract class EditableTabNavigableDataTableHandler<T> extends HttpServle
 		out.flush();
 	}
 
-	protected abstract DataTableHandlerResponse processData(Collection<T> data);
+	protected abstract DatagridHandlerResponse processData(Collection<T> data);
 	
 	protected abstract TypeToken<Collection<T>> getCollectionType();
 

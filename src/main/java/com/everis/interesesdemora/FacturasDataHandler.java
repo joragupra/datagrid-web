@@ -5,9 +5,11 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.everis.datagrid.DatagridHandlerResponse;
+import com.everis.datagrid.DatagridHandler;
 import com.google.gson.reflect.TypeToken;
 
-public class FacturasDataHandler extends EditableTabNavigableDataTableHandler<Factura> {
+public class FacturasDataHandler extends DatagridHandler<Factura> {
 	
 	/**
 	 * 
@@ -24,11 +26,11 @@ public class FacturasDataHandler extends EditableTabNavigableDataTableHandler<Fa
 	}
 	
 	@Override
-	protected DataTableHandlerResponse processData(Collection<Factura> facturas) {
+	protected DatagridHandlerResponse processData(Collection<Factura> facturas) {
 		// do stuff here
 		for (Factura f : facturas) {
 			LOG.debug("Procesando factura: " + f);
 		}
-		return new DataTableHandlerResponse();
+		return new DatagridHandlerResponse();
 	}
 }

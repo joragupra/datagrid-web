@@ -1,6 +1,6 @@
-package com.everis.interesesdemora;
+package com.everis.datagrid;
 
-public class DataTableHandlerResponse {
+public class DatagridHandlerResponse {
 	
 	private int code;
 	
@@ -10,11 +10,11 @@ public class DataTableHandlerResponse {
 	
 	public static final String SUCCESSFUL_PROCESSING_MESSAGE = "Data processed successfully";
 	
-	public DataTableHandlerResponse(){
+	public DatagridHandlerResponse(){
 		this(SUCCESSFUL_PROCESSING_CODE, SUCCESSFUL_PROCESSING_MESSAGE);
 	}
 	
-	public DataTableHandlerResponse(int code, String message){
+	public DatagridHandlerResponse(int code, String message){
 		this.code = code;
 		this.message = message;
 	}
