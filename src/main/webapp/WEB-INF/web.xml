@@ -13,7 +13,7 @@
 	
 	<servlet>
 		<description>Editable and tab navigable DataTable Handler</description>
-		<servlet-class>com.everis.interesesdemora.EditableTabNavigableDataTableHandler</servlet-class>
+		<servlet-class>com.everis.interesesdemora.FacturasDataHandler</servlet-class>
 		<servlet-name>DataTableHadler</servlet-name>
 	</servlet>
 	

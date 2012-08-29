@@ -20,8 +20,8 @@
 				});
 				return headerIds;
 			}
-		
-			function sendTable(table) {
+			
+			function createJsonFromTable(table) {
 				var ids = extractHeaderIds(table);
 				var data  = $(table).dataTable().fnGetNodes();
 				var json = '[';
@@ -52,6 +52,12 @@
 				
 				json += ']';
 				
+				return json;
+			}
+		
+			function sendTable(table) {
+				
+				var json = createJsonFromTable(table);
 				
 				//alert('json ' + json);
 				var request = $.ajax({
