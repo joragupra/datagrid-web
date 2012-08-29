@@ -15,10 +15,10 @@
 		
 			$(document).ready(function() {
 				
-				editAndTabDataTable('#editable', '/intweb/send.do');
+				editAndTabDataTable('#editable', '/datagrid-web/send.do');
 			    
 			} );
-
+			
 		</script>
 	</head>
 	<body>
