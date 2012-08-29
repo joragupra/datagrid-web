@@ -10,5 +10,16 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<servlet>
+		<description>Editable and tab navigable DataTable Handler</description>
+		<servlet-class>com.everis.interesesdemora.EditableTabNavigableDataTableHandler</servlet-class>
+		<servlet-name>DataTableHadler</servlet-name>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>DataTableHadler</servlet-name>
+		<url-pattern>/send.do</url-pattern>
+	</servlet-mapping>
 
 </web-app>

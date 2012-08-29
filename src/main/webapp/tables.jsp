@@ -12,6 +12,63 @@
 		<script type="text/javascript" language="javascript" src="js/mousetrap.min.js"></script>
 		<script type="text/javascript" language="javascript" src="js/jquery.editAndTabDataTables.js"></script>
 		<script type="text/javascript">
+		
+			function extractHeaderIds(table) {
+				var headerIds = new Array();
+				$( table + " thead > tr > th" ).each(function(){
+					headerIds.push($(this).attr('id'));
+				});
+				return headerIds;
+			}
+		
+			function sendTable(table) {
+				var ids = extractHeaderIds(table);
+				var data  = $(table).dataTable().fnGetNodes();
+				var json = '[';
+				
+				$(data).each(function(){
+					var row = '{';
+					var i = 0;
+					
+					if(json!='['){
+						json += ',';
+					}
+					
+			        $('> td', this).each(function(){
+			        	if(row!='{'){
+			        		row += ',';
+			        	}
+			        	
+			        	var val = "''";
+			        	if($(this).text()!='') {
+			        		val = $(this).text();
+			        	}
+			        	row += "'" + ids[i] + "':'" + val + "'";
+			        	i++;
+			        });
+			        row += '}';
+			        json += row;
+			    });
+				
+				json += ']';
+				
+				
+				//alert('json ' + json);
+				var request = $.ajax({
+					  url: "/intweb/send.do",
+					  type: "POST",
+					  data: {'data' : json},
+					  dataType: "json"
+					});
+				
+				request.done(function(msg) {
+					alert('exito');
+				});
+
+				request.fail(function(jqXHR, textStatus) {
+				  alert( "Request failed: " + textStatus );
+				});
+			}
 			
 			$(document).ready(function() {
 				
@@ -24,9 +81,11 @@
 	<body>
 		<h1>Registro de facturas</h1>
 		
-		<a class="btn btn-primary btn-small" onclick="fnClickAddRow( $('#editable').dataTable() );">Nueva factura ('ALT' + 'N')</a>
+		<p>
+			<a class="btn btn-small" onclick="fnClickAddRow( $('#editable').dataTable() );">Nueva factura ('ALT' + 'N')</a>
 		
-		<a class="btn btn-primary btn-small" onclick="$('#editable').dataTable().fnClearTable();">Limpiar tabla ('ALT' + 'L')</a>
+			<a class="btn btn-danger btn-small" onclick="$('#editable').dataTable().fnClearTable();">Limpiar tabla ('ALT' + 'L')</a>
+		</p>
 		
 		<br/>
 		<br/>
@@ -35,16 +94,16 @@
 		<table id="editable">
 		    <thead>
 		        <tr>
-		            <th>Cod. centro</th>
-		            <th>Denominación centro</th>
-		            <th>OG Vig.</th>
-		            <th>CIF/DNI/NIF</th>
-		            <th>N&ordm; factura</th>
-		            <th>N&ordm; de FOG</th>
-		            <th>F. exped.</th>
-		            <th>F. de recepci&oacute;n</th>
-		            <th>F. pago</th>
-		            <th>Importe</th>
+		            <th id="cod_centro">Cod. centro</th>
+		            <th id="nombre_centro">Denominación centro</th>
+		            <th id="og">OG Vig.</th>
+		            <th id="cif_dni_nif">CIF/DNI/NIF</th>
+		            <th id="n_factura">N&ordm; factura</th>
+		            <th id="n_fog">N&ordm; de FOG</th>
+		            <th id="n_exp">F. exped.</th>
+		            <th id="f_recep">F. de recepci&oacute;n</th>
+		            <th id="f_pago">F. pago</th>
+		            <th id="importe">Importe</th>
 		        </tr>
 		    </thead>
 		    <tbody>
@@ -69,5 +128,7 @@
 				<input type="text" name="cod_centro"/>
 			</fieldset>
 		</form>
+		
+		<a class="btn btn-primary" onclick="sendTable('#editable');">Enviar datos</a>
 	</body>
 </html>

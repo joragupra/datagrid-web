@@ -26,7 +26,7 @@
 			     } , {
 			        height  : '14px',
 			        tooltip : 'Pulse para modificar dato',
-			        placeholder : 'Inserte dato',
+			        placeholder : '',
 			        submit  : '',
 			        onblur  : 'submit',
 			    });
