@@ -130,7 +130,7 @@
 			        		row += ',';
 			        	}
 			        	
-			        	var val = "''";
+			        	var val = "";
 			        	if($(this).text()!='') {
 			        		val = $(this).text();
 			        	}

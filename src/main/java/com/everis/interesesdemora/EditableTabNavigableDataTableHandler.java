@@ -39,10 +39,13 @@ public class EditableTabNavigableDataTableHandler<T> extends HttpServlet {
 	public void service(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 
-		LOG.debug("Receiving data from DataTable. Processing...");
+		LOG.debug("Receiving data from DataTable");
 		
 		PrintWriter out = res.getWriter();
 		String json = req.getParameter(DATA_PARAM_NAME);
+		
+		LOG.debug(json);
+		LOG.debug("Processing...");
 
 		Gson gson = new Gson();
 		Type collectionType = getCollectionType().getType();
