@@ -7,8 +7,9 @@
 			function fnClickAddRow(oTable) {
 				var cod_centro = $("#rep_pattern :input[name='cod_centro']").val();
 				var cif_dni_nif = $("#rep_pattern :input[name='cif_dni_nif']").val();
+				var n_factura = $("#rep_pattern :input[name='n_factura']").val();
 				
-				var nueva = [[cod_centro,'','',cif_dni_nif,'','','','','','']];
+				var nueva = [[cod_centro,'','',cif_dni_nif,n_factura,'','','','','']];
 				
 				oTable.fnAddData( nueva );
 				
@@ -54,7 +55,7 @@
 			    });
 			}
 			
-			function editAndTabDataTable( table ) {
+			function editAndTabDataTable( table, url ) {
 				
 				var numCols = $(table).find('tr')[0].cells.length;
 				  
@@ -94,5 +95,81 @@
 			    Mousetrap.bind(['alt+l'], function(e) {
 			    	$(table).dataTable().fnClearTable();
 				    return false;
+				});
+			    
+			    // Associate alt+l shortcut to clear table
+			    Mousetrap.bind(['alt+s'], function(e) {
+			    	sendTable(table, url);
+				    return false;
+				});
+			}
+			
+			function extractHeaderIds(table) {
+				var headerIds = new Array();
+				$( table + " thead > tr > th" ).each(function(){
+					headerIds.push($(this).attr('id'));
+				});
+				return headerIds;
+			}
+			
+			function createJsonFromTable(table) {
+				var ids = extractHeaderIds(table);
+				var data  = $(table).dataTable().fnGetNodes();
+				var json = '[';
+				
+				$(data).each(function(){
+					var row = '{';
+					var i = 0;
+					
+					if(json!='['){
+						json += ',';
+					}
+					
+			        $('> td', this).each(function(){
+			        	if(row!='{'){
+			        		row += ',';
+			        	}
+			        	
+			        	var val = "''";
+			        	if($(this).text()!='') {
+			        		val = $(this).text();
+			        	}
+			        	row += "'" + ids[i] + "':'" + val + "'";
+			        	i++;
+			        });
+			        row += '}';
+			        json += row;
+			    });
+				
+				json += ']';
+				
+				return json;
+			}
+		
+			function sendTable(table, processingUrl) {
+				
+				var json = createJsonFromTable(table);
+				
+				//alert('json ' + json);
+				var request = $.ajax({
+					  url: processingUrl,
+					  type: "POST",
+					  data: {'data' : json},
+					  dataType: "json"
+					});
+				
+				request.done(function(response) {
+					if(response.code==0){
+						alert('Success!');
+						alert(response.message);
+					}
+					else{
+						alert('There was some error :(');
+						alert(response.message);
+					}
+				});
+
+				request.fail(function(jqXHR, textStatus) {
+				  alert( "Request failed: " + textStatus );
 				});
 			}

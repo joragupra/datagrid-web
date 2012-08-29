@@ -13,79 +13,9 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.editAndTabDataTables.js"></script>
 		<script type="text/javascript">
 		
-			function extractHeaderIds(table) {
-				var headerIds = new Array();
-				$( table + " thead > tr > th" ).each(function(){
-					headerIds.push($(this).attr('id'));
-				});
-				return headerIds;
-			}
-			
-			function createJsonFromTable(table) {
-				var ids = extractHeaderIds(table);
-				var data  = $(table).dataTable().fnGetNodes();
-				var json = '[';
-				
-				$(data).each(function(){
-					var row = '{';
-					var i = 0;
-					
-					if(json!='['){
-						json += ',';
-					}
-					
-			        $('> td', this).each(function(){
-			        	if(row!='{'){
-			        		row += ',';
-			        	}
-			        	
-			        	var val = "''";
-			        	if($(this).text()!='') {
-			        		val = $(this).text();
-			        	}
-			        	row += "'" + ids[i] + "':'" + val + "'";
-			        	i++;
-			        });
-			        row += '}';
-			        json += row;
-			    });
-				
-				json += ']';
-				
-				return json;
-			}
-		
-			function sendTable(table) {
-				
-				var json = createJsonFromTable(table);
-				
-				//alert('json ' + json);
-				var request = $.ajax({
-					  url: "/intweb/send.do",
-					  type: "POST",
-					  data: {'data' : json},
-					  dataType: "json"
-					});
-				
-				request.done(function(response) {
-					if(response.code==0){
-						alert('Success!');
-						alert(response.message);
-					}
-					else{
-						alert('There was some error :(');
-						alert(response.message);
-					}
-				});
-
-				request.fail(function(jqXHR, textStatus) {
-				  alert( "Request failed: " + textStatus );
-				});
-			}
-			
 			$(document).ready(function() {
 				
-				editAndTabDataTable('#editable');
+				editAndTabDataTable('#editable', '/intweb/send.do');
 			    
 			} );
 
@@ -142,6 +72,6 @@
 			</fieldset>
 		</form>
 		
-		<a class="btn btn-primary" onclick="sendTable('#editable');">Enviar datos</a>
+		<a class="btn btn-primary" onclick="sendTable('#editable', '/intweb/send.do');">Enviar datos ('ALT' + 'S')</a>
 	</body>
 </html>
