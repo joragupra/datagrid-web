@@ -25,16 +25,17 @@ import com.google.gson.reflect.TypeToken;
  * @version 1.0.0
  * 
  */
-public class EditableTabNavigableDataTableHandler<T> extends HttpServlet {
+public abstract class EditableTabNavigableDataTableHandler<T> extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7999995550997380015L;
 
 	private static final Logger LOG = LoggerFactory
 			.getLogger(EditableTabNavigableDataTableHandler.class);
 
 	public static final String DATA_PARAM_NAME = "data";
-	
-	protected TypeToken<Collection<T>> getCollectionType(){
-		return null;
-	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -60,21 +61,17 @@ public class EditableTabNavigableDataTableHandler<T> extends HttpServlet {
 			}
 		}
 		
-		processData(data);
+		DataTableHandlerResponse response = processData(data);
+		
+		LOG.debug("Processing result was " + response);
 		
 		res.setContentType("application/json");
-		out.println(gson.toJson(new DataTableHandlerResponse()));
+		out.println(gson.toJson(response));
 		out.flush();
 	}
 
-	protected void processData(Collection<T> data) {
-		// do stuff here
-	}
+	protected abstract DataTableHandlerResponse processData(Collection<T> data);
 	
-	public static void main(String[] args){
-		Gson gson = new Gson();
-		String result = gson.toJson(new DataTableHandlerResponse());
-		System.out.println(result);
-	}
+	protected abstract TypeToken<Collection<T>> getCollectionType();
 
 }

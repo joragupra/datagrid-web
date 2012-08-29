@@ -9,6 +9,11 @@ import com.google.gson.reflect.TypeToken;
 
 public class FacturasDataHandler extends EditableTabNavigableDataTableHandler<Factura> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4569157680775856487L;
+	
 	private static final Logger LOG = LoggerFactory
 			.getLogger(FacturasDataHandler.class);
 	
@@ -19,10 +24,11 @@ public class FacturasDataHandler extends EditableTabNavigableDataTableHandler<Fa
 	}
 	
 	@Override
-	protected void processData(Collection<Factura> facturas) {
+	protected DataTableHandlerResponse processData(Collection<Factura> facturas) {
 		// do stuff here
 		for (Factura f : facturas) {
 			LOG.debug("Procesando factura: " + f);
 		}
+		return new DataTableHandlerResponse();
 	}
 }
