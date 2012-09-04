@@ -18,10 +18,11 @@ How to use it
 
 In order to get the editable jQuery datagrid component up and running in your project just follow these steps:
 
-1. Add DatagridHandler and DatagridHandlerResponse to you source code. Or package it in a JAR file and add it to your classpath.
-2. Provide a proper DatagridHandler subclass. Don't panic: it's very easy to extends DatagridHandler. You can see a working subclass that handles entities of type Factura in FacturasDataHandler.
+1. Add `DatagridHandler` and `DatagridHandlerResponse` to you source code. Or package it in a JAR file and add it to your classpath.
+2. Provide a proper DatagridHandler subclass. Don't panic: it's very easy to extends DatagridHandler. You can see a working subclass that handles entities of type Factura in `FacturasDataHandler`.
 3. Declare you DatagridHandler as a servlet in your web.xml file and provide an URL that links with that servlet like the following:
-`    <servlet>
+```xml
+     <servlet>
         <description>Editable and tab navigable DataTable Handler</description>
         <servlet-class>com.everis.interesesdemora.FacturasDataHandler</servlet-class>
         <servlet-name>DataTableHadler</servlet-name>
@@ -30,8 +31,10 @@ In order to get the editable jQuery datagrid component up and running in your pr
      <servlet-mapping>
         <servlet-name>DataTableHadler</servlet-name>
         <url-pattern>/send.do</url-pattern>
-     </servlet-mapping>`
+     </servlet-mapping>
+```
 4. Include the following web resources in your application:
+
 * bootstrap.js
 * jquery.dataTables.js
 * jquery.editAndTabDataTables.js
@@ -40,8 +43,12 @@ In order to get the editable jQuery datagrid component up and running in your pr
 * mousetrap.min.js
 * jquery.dataTables.css
 * bootstrap.css
-Inside this project you can find an example layout for a typical Java web application.
+
+You can find an example layout for a typical Java web application inside this project.
+
 5. Make your table fully editable in an authentic datagrid way! You just need to reference all these resources in your HTML and call the JavaScript function `editAndTabDataTable` with the following parameters:
+
 * Your table ID.
 * The URL where your DatagridHandler is listening (the one you declared in your `server.xml` file).
+
 6. Enjoy your new and easy way to input data in your web application.
