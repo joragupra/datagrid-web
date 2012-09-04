@@ -19,8 +19,11 @@ How to use it
 In order to get the editable jQuery datagrid component up and running in your project just follow these steps:
 
 1) Add `DatagridHandler` and `DatagridHandlerResponse` to you source code. Or package it in a JAR file and add it to your classpath.
+
 2) Provide a proper DatagridHandler subclass. Don't panic: it's very easy to extends DatagridHandler. You can see a working subclass that handles entities of type Factura in `FacturasDataHandler`.
+
 3) Declare you DatagridHandler as a servlet in your web.xml file and provide an URL that links with that servlet like the following:
+
 ```xml
      <servlet>
         <description>Editable and tab navigable DataTable Handler</description>
@@ -33,6 +36,7 @@ In order to get the editable jQuery datagrid component up and running in your pr
         <url-pattern>/send.do</url-pattern>
      </servlet-mapping>
 ```
+
 4) Include the following web resources in your application:
 
 *   bootstrap.js
