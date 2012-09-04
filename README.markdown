@@ -35,20 +35,20 @@ In order to get the editable jQuery datagrid component up and running in your pr
 ```
 4. Include the following web resources in your application:
 
-* bootstrap.js
-* jquery.dataTables.js
-* jquery.editAndTabDataTables.js
-* jquery.jeditable.js
-* jquery.js
-* mousetrap.min.js
-* jquery.dataTables.css
-* bootstrap.css
+*   bootstrap.js
+*   jquery.dataTables.js
+*   jquery.editAndTabDataTables.js
+*   jquery.jeditable.js
+*   jquery.js
+*   mousetrap.min.js
+*   jquery.dataTables.css
+*   bootstrap.css
 
 You can find an example layout for a typical Java web application inside this project.
 
 5. Make your table fully editable in an authentic datagrid way! You just need to reference all these resources in your HTML and call the JavaScript function `editAndTabDataTable` with the following parameters:
 
-* Your table ID.
-* The URL where your DatagridHandler is listening (the one you declared in your `server.xml` file).
+*   Your table ID.
+*   The URL where your DatagridHandler is listening (the one you declared in your `server.xml` file).
 
 6. Enjoy your new and easy way to input data in your web application.
