@@ -28,32 +28,59 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h3>Welcome to GitHub Pages.</h3>
+          <h1>Editable jQuery datagrid component</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<h2>Description</h2>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<p>A fully editable datagrid component that lets you introduce large data sets with ease. How? Just create a new record in your table and start filling fields. You can navigate from one field to the next on just clicking Tab key. When you reach the last field of a row a new one is created automatically. And it also gives you shortcuts to create new records or send your data bulk to the server. Start inserting your data in a fast way with no need to use your mouse!</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h2>What do you get?</h2>
 
-<h3>Designer Templates</h3>
+<p>A JavaScript library that empowers <a href="http://datatables.net/">DataTable</a> to add some cool funtionalities like cell editing (based on <a href="http://www.appelsiini.net/projects/jeditable">jEditable</a>), tab-press navigation through cells and shortcuts for most common actions (based on <a href="http://craig.is/killing/mice">Mousetrap</a>). You'll have to include our datagrid library as well as some other supporting libraries in order to get your datagrid component up and running.</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>As an extra, you will find a working Java web app that uses datagrid and handles data on the server side. In this app we provide an abstract Servlet that receives data in JSON format and parses it with <a href="https://sites.google.com/site/gson/">Gson</a>. Then it delegates all the processing stuff to an abstract method you can extend. It's also provided a real subclass to show you how you could implement your own solution for data processing.</p>
 
-<h3>Rather Drive Stick?</h3>
+<h2>How to use it</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>In order to get the editable jQuery datagrid component up and running in your project just follow these steps:</p>
 
-<h3>Authors and Contributors</h3>
+<p>1) Add <code>DatagridHandler</code> and <code>DatagridHandlerResponse</code> to you source code. Or package it in a JAR file and add it to your classpath.</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>2) Provide a proper DatagridHandler subclass. Don't panic: it's very easy to extends DatagridHandler. You can see a working subclass that handles entities of type Factura in <code>FacturasDataHandler</code>.</p>
 
-<h3>Support or Contact</h3>
+<p>3) Declare you DatagridHandler as a servlet in your web.xml file and provide an URL that links with that servlet like the following:</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<div class="highlight"><pre>     <span class="nt">&lt;servlet&gt;</span>
+        <span class="nt">&lt;description&gt;</span>Editable and tab navigable DataTable Handler<span class="nt">&lt;/description&gt;</span>
+        <span class="nt">&lt;servlet-class&gt;</span>com.everis.interesesdemora.FacturasDataHandler<span class="nt">&lt;/servlet-class&gt;</span>
+        <span class="nt">&lt;servlet-name&gt;</span>DataTableHadler<span class="nt">&lt;/servlet-name&gt;</span>
+     <span class="nt">&lt;/servlet&gt;</span>
+
+     <span class="nt">&lt;servlet-mapping&gt;</span>
+        <span class="nt">&lt;servlet-name&gt;</span>DataTableHadler<span class="nt">&lt;/servlet-name&gt;</span>
+        <span class="nt">&lt;url-pattern&gt;</span>/send.do<span class="nt">&lt;/url-pattern&gt;</span>
+     <span class="nt">&lt;/servlet-mapping&gt;</span>
+</pre></div>
+
+<p>4) Include the following web resources in your application:</p>
+
+<ul>
+<li>  bootstrap.js</li>
+<li>  jquery.dataTables.js</li>
+<li>  jquery.editAndTabDataTables.js</li>
+<li>  jquery.jeditable.js</li>
+<li>  jquery.js</li>
+<li>  mousetrap.min.js</li>
+<li>  jquery.dataTables.css</li>
+<li>  bootstrap.css</li>
+</ul><p>You can find an example layout for a typical Java web application inside this project.</p>
+
+<p>5) Make your table fully editable in an authentic datagrid way! You just need to reference all these resources in your HTML and call the JavaScript function <code>editAndTabDataTable</code> with the following parameters:</p>
+
+<ul>
+<li>  Your table ID.</li>
+<li>  The URL where your DatagridHandler is listening (the one you declared in your <code>server.xml</code> file).</li>
+</ul><p>6) Enjoy your new and easy way to input data in your web application.</p>
         </section>
 
         <aside id="sidebar">
