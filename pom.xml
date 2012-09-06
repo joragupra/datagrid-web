@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<name>Datagrid example web project</name>
-	<url>http://maven.apache.org</url>
+	<url>http://joragupra.github.com/datagrid-web/</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
